@@ -73,6 +73,6 @@ jobs:
       uses: andymckay/append-gist-action@6e8d64427fe47cbacf4ab6b890411f1d67c07f3e
       with:
         token: ${{ secrets.GIST_TOKEN }}
-        gistURL: https://gist.githubusercontent.com/{user}/{id}
+        gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
         file: badge.svg
           
