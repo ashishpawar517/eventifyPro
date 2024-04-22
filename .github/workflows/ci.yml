@@ -37,11 +37,13 @@ jobs:
       run: mvn clean test
 
     - name: Publish Test Results
+      id: test-results
       uses: EnricoMi/publish-unit-test-result-action/linux@v2
       if: always()
       with:
         files: |
           target/surefire-reports/*.xml
+          
     - name: Set badge color
       shell: bash
       run: |
