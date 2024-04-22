@@ -11,9 +11,5 @@ class EventifyProApplicationTests {
   void contextLoads() {
     Assertions.assertEquals(7, 7);
   }
-
-  @Test
-  void sampleTest() {
-    Assertions.assertEquals(77, 7);
-  }
+  
 }
