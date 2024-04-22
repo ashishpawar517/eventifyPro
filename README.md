@@ -1,3 +1,4 @@
+![](https://gist.githubusercontent.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437/raw/badge.svg)
 # EventifyPro - Event Booking Platform
 
 ## Description
