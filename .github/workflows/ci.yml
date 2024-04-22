@@ -33,3 +33,11 @@ jobs:
     - name: Maven Dependency Tree Dependency Submission
       uses: advanced-security/maven-dependency-submission-action@v4.0.2
             
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/linux@v2
+      if: always()
+      with:
+        files: |
+          test-results/**/*.xml
+          test-results/**/*.trx
+          test-results/**/*.json
