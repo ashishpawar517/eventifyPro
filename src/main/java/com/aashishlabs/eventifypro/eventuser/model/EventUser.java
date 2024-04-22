@@ -6,18 +6,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 
 @Entity
 @Table(name = "event_user")
 public class EventUser {
 
+  private static final String EVENT_USER_FIRST_NAME_COLUMN = "firstname";
+  private static final String EVENT_USER_USERNAME_COLUMN = "username";
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
-  @Column(name = "username")
+  @Column(name = EVENT_USER_USERNAME_COLUMN)
   private String username;
 
-  @Column(name = "firstname")
+  @Column(name = EVENT_USER_FIRST_NAME_COLUMN)
   private String firstName;
   @Column(name = "lastname")
   private String lastName;

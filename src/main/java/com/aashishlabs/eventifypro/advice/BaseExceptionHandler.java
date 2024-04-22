@@ -30,9 +30,9 @@ public class BaseExceptionHandler {
     Map<String, String> map = new HashMap<>();
 
     map.put("errorMessage", exception.getMessage());
-    map.put("errorCode", String.valueOf(exception.getCode()));
+    map.put("errorCode", String.valueOf(exception.getCode().getErrorCode()));
 
-    log.error(exception.getMessage(), exception.getCode());
+    log.error(exception.getMessage(), exception.getCode().getErrorCode());
     return map;
   }
 
