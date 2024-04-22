@@ -71,4 +71,4 @@ EventifyPro is licensed under the MIT License. See the LICENSE file for more det
 
 For any inquiries or feedback regarding EventifyPro,
 please contact us at 
-[email@example.com](mailto:email@example.com). We'd love to hear from you!
+[emailforashish511@gmail.com](mailto:emailforashish511@gmail.com). We'd love to hear from you!
