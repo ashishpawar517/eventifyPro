@@ -1,6 +1,7 @@
 package com.aashishlabs.eventifypro.eventuser.model;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 

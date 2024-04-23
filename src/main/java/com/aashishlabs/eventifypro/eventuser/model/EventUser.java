@@ -54,6 +54,7 @@ public class EventUser implements UserDetails {
   @Column(name = EVENT_USER_PASSWORD_COLUMN_NAME)
   private String password;
 
+  @Getter
   @Setter
   @Enumerated(EnumType.STRING)
   private Role role;
@@ -63,6 +64,7 @@ public class EventUser implements UserDetails {
   @Column(name = EVENT_USER_CREATED_DATE_COLUMN_NAME)
   private LocalDateTime createdDate;
 
+  @Getter
   @Setter
   @Column(name = EVENT_USER_UPDATED_DATE_COLUMN_NAME)
   private LocalDateTime updatedDate;

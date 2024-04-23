@@ -44,9 +44,12 @@ public class EventUserService implements IEventUserService {
 
     if (eventUserRepository.findEventUserByUsername(username).isPresent()
     ) {
+      log.error("duplicate username {} ", username);
       throw new EventUserException("Username already exists", ErrorCode.DUPLICATE_USERNAME);
     }
     if (eventUserRepository.findEventUserByEmailAddress(emailAddress).isPresent()) {
+      log.error("duplicate email {} ", emailAddress);
+
       throw new EventUserException("Email already exists", ErrorCode.DUPLICATE_EMAIL);
     }
 
