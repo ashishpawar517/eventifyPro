@@ -32,16 +32,4 @@ public class EventUserApi {
     EventUserDTO user = iEventUserService.findById(userId);
     return new ResponseEntity<>(user, HttpStatus.OK);
   }
-
-  @PostMapping("/register")
-  public ResponseEntity<?> createNewEventUser(@Valid @RequestBody CreateEventUserRequest request)
-      throws EventUserException {
-    EventUserDTO eventUser = iEventUserService.createEventUser(request.getUsername(),
-        request.getFirstName(),
-        request.getLastName(),
-        request.getEmailAddress(),
-        request.getPassword());
-
-    return new ResponseEntity<>(eventUser, HttpStatus.OK);
-  }
 }
