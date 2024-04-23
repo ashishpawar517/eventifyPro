@@ -20,31 +20,33 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
+  public static final String AUTHORIZATION = "Authorization";
+  public static final String BEARER_ = "Bearer ";
+  public static final int BEGIN_INDEX_OF_AUTH_HEADER = 7;
+
   private final JwtService jwtService;
+
   private final UserDetailsService userDetailsService;
 
   @Override
   protected void doFilterInternal(@Nonnull HttpServletRequest request,
-      @Nonnull HttpServletResponse response,
-      @Nonnull FilterChain filterChain) throws ServletException, IOException {
+      @Nonnull HttpServletResponse response, @Nonnull FilterChain filterChain)
+      throws ServletException, IOException {
 
-    final String authHeader = request.getHeader("Authorization");
+    final String authHeader = request.getHeader(AUTHORIZATION);
     final String jwt;
     final String username;
-    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+    if (authHeader == null || !authHeader.startsWith(BEARER_)) {
       filterChain.doFilter(request, response);
       return;
     }
-    jwt = authHeader.substring(7);
+    jwt = authHeader.substring(BEGIN_INDEX_OF_AUTH_HEADER);
     username = jwtService.extractUsername(jwt);
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
       if (jwtService.isTokenValid(jwt, userDetails)) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-            userDetails,
-            null,
-            userDetails.getAuthorities()
-        );
+            userDetails, null, userDetails.getAuthorities());
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
