@@ -4,20 +4,15 @@
 
 ### Endpoints:
 
-- [x] **POST /api/register**
+- [x] POST /api/register
     - **Description**: Registers a new user.
     - **Request Body**: JSON object containing user details (username, email, password).
     - **Response**: Success message or error if registration fails.
 
-2. **POST /api/login**
+2. [x] POST /api/login 
     - **Description**: Logs in an existing user.
     - **Request Body**: JSON object containing user credentials (username/email, password).
     - **Response**: JWT token on successful login or error if login fails.
-
-3. **POST /api/logout**
-    - **Description**: Logs out the currently authenticated user.
-    - **Request Header**: Authorization header with JWT token.
-    - **Response**: Success message or error if logout fails.
 
 ### Additional Details:
 - Implement password hashing and encryption to securely store user passwords.
