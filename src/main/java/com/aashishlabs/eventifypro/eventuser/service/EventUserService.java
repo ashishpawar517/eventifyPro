@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-class EventUserService implements IEventUserService {
+public class EventUserService implements IEventUserService {
 
   private final IEventUserRepository eventUserRepository;
   private final EventUserDTOMapper eventUserDTOMapper = new EventUserDTOMapper();
   private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  EventUserService(IEventUserRepository repository, PasswordEncoder passwordEncoder) {
+  public EventUserService(IEventUserRepository repository, PasswordEncoder passwordEncoder) {
     this.eventUserRepository = repository;
     this.passwordEncoder = passwordEncoder;
   }
@@ -44,9 +44,12 @@ class EventUserService implements IEventUserService {
 
     if (eventUserRepository.findEventUserByUsername(username).isPresent()
     ) {
+      log.error("duplicate username {} ", username);
       throw new EventUserException("Username already exists", ErrorCode.DUPLICATE_USERNAME);
     }
     if (eventUserRepository.findEventUserByEmailAddress(emailAddress).isPresent()) {
+      log.error("duplicate email {} ", emailAddress);
+
       throw new EventUserException("Email already exists", ErrorCode.DUPLICATE_EMAIL);
     }
 
