@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-class EventUserService implements IEventUserService {
+public class EventUserService implements IEventUserService {
 
   private final IEventUserRepository eventUserRepository;
   private final EventUserDTOMapper eventUserDTOMapper = new EventUserDTOMapper();
   private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  EventUserService(IEventUserRepository repository, PasswordEncoder passwordEncoder) {
+  public EventUserService(IEventUserRepository repository, PasswordEncoder passwordEncoder) {
     this.eventUserRepository = repository;
     this.passwordEncoder = passwordEncoder;
   }
