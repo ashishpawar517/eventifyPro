@@ -1,8 +1,10 @@
-package com.aashishlabs.eventifypro.commons.auth.service;
+package com.aashishlabs.eventifypro.unittests.service.commons.auth;
 
 import com.aashishlabs.eventifypro.commons.auth.controller.request.AuthenticationRequest;
 import com.aashishlabs.eventifypro.commons.auth.controller.request.RegisterRequest;
 import com.aashishlabs.eventifypro.commons.auth.controller.response.AuthenticationResponse;
+import com.aashishlabs.eventifypro.commons.auth.service.AuthenticationService;
+import com.aashishlabs.eventifypro.commons.auth.service.JwtService;
 import com.aashishlabs.eventifypro.eventuser.exception.EventUserException;
 import com.aashishlabs.eventifypro.eventuser.model.EventUser;
 import com.aashishlabs.eventifypro.eventuser.service.IEventUserService;

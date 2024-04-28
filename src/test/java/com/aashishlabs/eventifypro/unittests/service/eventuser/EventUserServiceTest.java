@@ -1,4 +1,4 @@
-package com.aashishlabs.eventifypro.eventuser;
+package com.aashishlabs.eventifypro.unittests.service.eventuser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
