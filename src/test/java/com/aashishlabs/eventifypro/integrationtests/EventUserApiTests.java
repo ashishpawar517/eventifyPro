@@ -22,6 +22,18 @@ public class EventUserApiTests {
   private MockMvc mockMvc;
 
   @Test
+  public void testGetUserByIdWithoutAuth() throws Exception {
+    // Arrange
+    long userId = 1L;
+
+    // Act
+    ResultActions result = mockMvc.perform(get("/v1/eventUser/getUser?userId={id}", userId));
+
+    // Assert
+    result.andExpect(status().isForbidden());
+  }
+
+  @Test
   @WithMockUser(username = "user1", roles = "USER")
   public void testGetUserById() throws Exception {
     // Arrange
@@ -29,7 +41,6 @@ public class EventUserApiTests {
 
     // Act
     ResultActions result = mockMvc.perform(get("/v1/eventUser/getUser?userId={id}", userId));
-
 
     // Assert
     result.andExpect(status().isOk())
