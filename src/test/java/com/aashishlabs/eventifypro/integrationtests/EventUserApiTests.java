@@ -31,7 +31,7 @@ public class EventUserApiTests {
     ResultActions result = mockMvc.perform(get(API_V_1_EVENT_USER + "getUser?userId={id}", userId));
 
     // Assert
-    result.andExpect(status().isForbidden());
+    result.andExpect(status().isUnauthorized());
   }
 
   @Test
