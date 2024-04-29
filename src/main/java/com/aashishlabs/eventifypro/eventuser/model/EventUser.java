@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "event_user")
+@NoArgsConstructor
 public class EventUser implements UserDetails {
 
   private static final String EVENT_USER_LAST_NAME_COLUMN_NAME = "lastname";
@@ -68,9 +70,6 @@ public class EventUser implements UserDetails {
   @Setter
   @Column(name = EVENT_USER_UPDATED_DATE_COLUMN_NAME)
   private LocalDateTime updatedDate;
-
-  public EventUser() {
-  }
 
   public EventUser(String username, String firstName, String lastName, String emailAddress,
       String password) {
