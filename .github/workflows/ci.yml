@@ -75,3 +75,14 @@ jobs:
           token: ${{ secrets.GIST_TOKEN }}
           gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
           file: badge.svg
+      - name: Create Release ${{ github.event.pull_request.title }}
+        uses: bfren/create-release@v1
+        with:
+          repo: ashishpawar517/eventifyPro
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.ref }}
+          pr_title: ${{ github.event.pull_request.title }}
+          release_name: Release ${{ github.event.pull_request.title }}
+          body: |
+            Changes:
+            ${{ github.event.pull_request.body }}
