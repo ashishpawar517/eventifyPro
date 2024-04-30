@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/eventUser")
+@RequestMapping("/api/v1/eventUser")
 public class EventUserApi {
 
   private final IEventUserService iEventUserService;
