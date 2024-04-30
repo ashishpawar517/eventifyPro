@@ -1,4 +1,8 @@
+[![Java CI with Maven](https://github.com/ashishpawar517/eventifyPro/actions/workflows/ci.yml/badge.svg)](https://github.com/ashishpawar517/eventifyPro/actions/workflows/ci.yml)
 ![](https://gist.githubusercontent.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437/raw/badge.svg)
+![](https://img.shields.io/badge/java-17-blue)
+![](https://img.shields.io/badge/springboot-17-green)
+
 # EventifyPro - Event Booking Platform
 
 ## Description
@@ -14,40 +18,6 @@ EventifyPro is a comprehensive event booking platform built with Spring Boot, de
 5. **Email Notifications**: Receive automated notifications for booking confirmations, event reminders, and updates.
 6. **Search and Filters**: Easily search for events using keywords, location, date range, and categories.
 7. **Reviews and Ratings**: Leave feedback and ratings for attended events to help other users make informed decisions.
-
-## API Tasks
-
-1. **User Authentication API**:
-    - Implement user registration, login, and logout functionality.
-    - Add password hashing and encryption for enhanced security.
-
-2. **Event Management API**:
-    - Create endpoints for adding, editing, and deleting events.
-    - Implement validation for event details to ensure data integrity.
-
-3. **Ticket Booking API**:
-    - Develop endpoints for booking tickets, selecting seats, and processing payments.
-    - Integrate with payment gateways for secure transactions.
-
-4. **User Profile API**:
-    - Implement endpoints for viewing and updating user profiles.
-    - Include functionality for viewing booking history and managing preferences.
-
-5. **Admin Dashboard API**:
-    - Create admin-only endpoints for managing events, ticket availability, and pricing.
-    - Implement analytics endpoints for tracking event popularity and sales.
-
-6. **Email Notification API**:
-    - Integrate with email service providers to send automated notifications for booking confirmations, reminders, and updates.
-    - Develop endpoints for triggering and sending emails based on user actions.
-
-7. **Search and Filters API**:
-    - Implement endpoints for searching events based on keywords, location, date range, and categories.
-    - Add filters to refine search results for better user experience.
-
-8. **Reviews and Ratings API**:
-    - Create endpoints for users to leave reviews and ratings for attended events.
-    - Develop functionality to calculate average ratings for events and display them on event listings.
 
 ## Contributing
 
@@ -71,5 +41,5 @@ EventifyPro is licensed under the MIT License. See the LICENSE file for more det
 ## Contact
 
 For any inquiries or feedback regarding EventifyPro,
-please contact us at 
+please contact us at
 [emailforashish511@gmail.com](mailto:emailforashish511@gmail.com). We'd love to hear from you!
