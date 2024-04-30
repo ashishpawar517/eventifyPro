@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.ResultActions;
 public class EventUserApiTests {
 
   public static final String API_V_1_EVENT_USER = "/api/v1/eventUser/";
+
   @Autowired
   private MockMvc mockMvc;
 
