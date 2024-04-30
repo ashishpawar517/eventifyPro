@@ -1,17 +1,20 @@
-name: auto-gh-release
+name: Create Release on Merge
 
 on:
-  pull_request:
+ pull_request:
     types: [closed]
-  workflow_dispatch:
 
 jobs:
-  create-release:
-    if: github.event.pull_request.merged
+ create-release:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-    -
-      name: Create Release ${{ github.event.pull_request.title }}
+    - name: Create Release ${{ github.event.pull_request.title }}
       uses: bfren/create-release@v1
       with:
-        token: ${{ secrets.GIST_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ github.event.pull_request.title }}
+        release_name: Release ${{ github.event.pull_request.title }}
+        body: |
+          Changes:
+          ${{ github.event.pull_request.body }}
