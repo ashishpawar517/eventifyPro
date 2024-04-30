@@ -75,3 +75,12 @@ jobs:
           token: ${{ secrets.GIST_TOKEN }}
           gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
           file: badge.svg
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/exec
+            @semantic-release/changelog
