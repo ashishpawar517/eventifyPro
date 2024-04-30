@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,7 +41,7 @@ public class EventUser implements UserDetails {
   private String username;
 
   @Getter
-  @Column(name = EVENT_USER_FIRST_NAME_COLUMN)
+  @Column(name = EVENT_USER_FIRST_NAME_COLUMN, unique = true)
   private String firstName;
 
   @Getter
@@ -50,7 +49,7 @@ public class EventUser implements UserDetails {
   private String lastName;
 
   @Getter
-  @Column(name = EVENT_USER_EMAIL_ADDRESS_COLUMN_NAME)
+  @Column(name = EVENT_USER_EMAIL_ADDRESS_COLUMN_NAME, unique = true)
   private String emailAddress;
 
   @Column(name = EVENT_USER_PASSWORD_COLUMN_NAME)
