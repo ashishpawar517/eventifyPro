@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class JwtService {
+
   public static final int EXPIRATION_TIME_FOR_JWT = 1000 * 60 * 24;
   private static final String SECRET_KEY = "38c1a752955af30f400f3bd8e551736733fda58d2c741578c9664a7ccb9abe10";
 
@@ -42,7 +43,9 @@ public class JwtService {
   }
 
   public String generateToken(UserDetails userDetails) {
-    return generateToken(new HashMap<>(), userDetails);
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("role", userDetails.getAuthorities());
+    return generateToken(claims, userDetails);
   }
 
   public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {

@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.ResultActions;
 @AutoConfigureMockMvc
 public class EventUserApiTests {
 
+  public static final String API_V_1_EVENT_USER = "/api/v1/eventUser/";
+
   @Autowired
   private MockMvc mockMvc;
 
@@ -27,10 +29,10 @@ public class EventUserApiTests {
     long userId = 1L;
 
     // Act
-    ResultActions result = mockMvc.perform(get("/v1/eventUser/getUser?userId={id}", userId));
+    ResultActions result = mockMvc.perform(get(API_V_1_EVENT_USER + "getUser?userId={id}", userId));
 
     // Assert
-    result.andExpect(status().isForbidden());
+    result.andExpect(status().isUnauthorized());
   }
 
   @Test
@@ -40,7 +42,7 @@ public class EventUserApiTests {
     long userId = 1L;
 
     // Act
-    ResultActions result = mockMvc.perform(get("/v1/eventUser/getUser?userId={id}", userId));
+    ResultActions result = mockMvc.perform(get(API_V_1_EVENT_USER + "getUser?userId={id}", userId));
 
     // Assert
     result.andExpect(status().isOk())
