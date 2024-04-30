@@ -1,6 +1,5 @@
 package com.aashishlabs.eventifypro.integrationtests;
 
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -8,10 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,12 +19,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestMethodOrder(OrderAnnotation.class)
 public class EventApiTests {
 
   public static final String EVENT_API_ENDPOINT = "/api/v1/event/";
@@ -37,6 +35,7 @@ public class EventApiTests {
 
 
   @Test
+  @Order(1)
   @WithMockUser(username = "user1", roles = "USER")
   public void testAddWithUser() throws Exception {
     // Arrange
@@ -74,6 +73,7 @@ public class EventApiTests {
   }
 
   @Test
+  @Order(2)
   public void testAddWithAdmin() throws Exception {
     // Arrange
     String accessToken = obtainAccessToken("admin_Alice", "password");
@@ -105,6 +105,7 @@ public class EventApiTests {
 
 
   @Test
+  @Order(3)
   @WithMockUser(username = "user1", roles = "USER")
   public void testUpdateWithUser() throws Exception {
     // Arrange
@@ -128,6 +129,7 @@ public class EventApiTests {
   }
 
   @Test
+  @Order(4)
   public void testUpdateWithAdmin() throws Exception {
     // Arrange
     String accessToken = obtainAccessToken("admin_Alice", "password");
@@ -159,6 +161,7 @@ public class EventApiTests {
   }
 
   @Test
+  @Order(5)
   public void testUpdateWithAdminWithInvalidId() throws Exception {
     // Arrange
     String accessToken = obtainAccessToken("admin_Alice", "password");
@@ -187,6 +190,7 @@ public class EventApiTests {
   }
 
   @Test
+  @Order(6)
   @WithMockUser(username = "user1", roles = "USER")
   public void testDeleteWithUser() throws Exception {
     // Arrange
@@ -202,6 +206,7 @@ public class EventApiTests {
   }
 
   @Test
+  @Order(7)
   public void testDeleteWithAdminWithInvalidId() throws Exception {
     // Arrange
     String accessToken = obtainAccessToken("admin_Alice", "password");
@@ -220,7 +225,7 @@ public class EventApiTests {
   }
 
   @Test
-  @Order(9)
+  @Order(8)
   public void testDeleteWithAdminWithValidId() throws Exception {
     // Arrange
     String accessToken = obtainAccessToken("admin_Alice", "password");
