@@ -75,12 +75,19 @@ jobs:
           token: ${{ secrets.GIST_TOKEN }}
           gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
           file: badge.svg
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/exec
-            @semantic-release/changelog
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
