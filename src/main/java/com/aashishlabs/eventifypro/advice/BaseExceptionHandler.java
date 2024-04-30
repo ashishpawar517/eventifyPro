@@ -24,7 +24,7 @@ public class BaseExceptionHandler {
     return map;
   }
 
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(BaseException.class)
   public Map<String, String> handleBaseException(BaseException exception) {
     Map<String, String> map = new HashMap<>();

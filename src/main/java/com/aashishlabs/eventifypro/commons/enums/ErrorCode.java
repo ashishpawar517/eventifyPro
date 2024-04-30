@@ -9,7 +9,11 @@ public enum ErrorCode {
 
   DUPLICATE_USERNAME(102),
 
-  DUPLICATE_EMAIL(103);
+  DUPLICATE_EMAIL(103),
+
+  EVENT_NOT_ALLOWED(104),
+
+  EVENT_NOT_FOUND(105);
 
   private int errorCode;
 
