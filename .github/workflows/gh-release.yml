@@ -12,6 +12,7 @@ jobs:
     - name: Create Release ${{ github.event.pull_request.title }}
       uses: bfren/create-release@v1
       with:
+        repo: ashishpawar517/eventifyPro
         token: ${{ secrets.GITHUB_TOKEN }}
         tag_name: ${{ github.event.pull_request.title }}
         release_name: Release ${{ github.event.pull_request.title }}
