@@ -12,12 +12,12 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public ResponseEntity<String> handleGeneralError(Exception ex, WebRequest request) {
-    log.error("Global exception occurred:: {} request {} ", ex.getMessage(), request.toString());
-    return new ResponseEntity<>(
-        "The system is experiencing problems. Please try again after some time.",
-        HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+//  @ExceptionHandler(Exception.class)
+//  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//  public ResponseEntity<String> handleGeneralError(Exception ex, WebRequest request) {
+//    log.error("Global exception occurred:: {} request {} ", ex.getMessage(), request.toString());
+//    return new ResponseEntity<>(
+//        "The system is experiencing problems. Please try again after some time.",
+//        HttpStatus.INTERNAL_SERVER_ERROR);
+//  }
 }
