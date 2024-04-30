@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -23,20 +24,27 @@ public class Event {
   private static final String EVENT_NAME_UPDATED_DATE_COLUMN = "updated_date";
 
   @Id
+  @Getter
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long eventId;
 
+  @Getter
   @Column(name = EVENT_NAME_COLUMN)
   private String name;
+
+  @Getter
   @Column(name = EVENT_NAME_DESCRIPTION)
   private String description;
 
+  @Getter
   @Column(name = EVENT_NAME_DATE_COLUMN)
   private LocalDate date;
 
+  @Getter
   @Column(name = EVENT_NAME_LOCATION_COLUMN)
   private String location;
 
+  @Getter
   @Column(name = EVENT_NAME_CREATED_DATE_COLUMN)
   private LocalDateTime createdDate;
 
