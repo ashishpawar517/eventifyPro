@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "event")
@@ -28,18 +29,22 @@ public class Event {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long eventId;
 
+  @Setter
   @Getter
   @Column(name = EVENT_NAME_COLUMN)
   private String name;
 
+  @Setter
   @Getter
   @Column(name = EVENT_NAME_DESCRIPTION)
   private String description;
 
+  @Setter
   @Getter
   @Column(name = EVENT_NAME_DATE_COLUMN)
   private LocalDate date;
 
+  @Setter
   @Getter
   @Column(name = EVENT_NAME_LOCATION_COLUMN)
   private String location;
@@ -48,6 +53,7 @@ public class Event {
   @Column(name = EVENT_NAME_CREATED_DATE_COLUMN)
   private LocalDateTime createdDate;
 
+  @Setter
   @Column(name = EVENT_NAME_UPDATED_DATE_COLUMN)
   private LocalDateTime updatedDate;
 
