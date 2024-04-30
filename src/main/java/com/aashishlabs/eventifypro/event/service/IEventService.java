@@ -1,7 +1,9 @@
 package com.aashishlabs.eventifypro.event.service;
 
 import com.aashishlabs.eventifypro.event.exception.EventException;
+import com.aashishlabs.eventifypro.event.model.Event;
 import com.aashishlabs.eventifypro.event.model.EventDTO;
+import org.springframework.data.domain.Page;
 
 public interface IEventService {
 
@@ -18,4 +20,6 @@ public interface IEventService {
 
 
   void deleteEvent(Long eventId) throws EventException;
+
+   Page<Event> getAllEvents(int page, int size) ;
 }
