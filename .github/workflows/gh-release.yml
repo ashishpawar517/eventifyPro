@@ -14,7 +14,7 @@ jobs:
       with:
         repo: ashishpawar517/eventifyPro
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: ${{ github.ref }}
+        tag_name: "v1.0.0"
         pr_title: ${{ github.event.pull_request.title }}
         release_name: Release ${{ github.event.pull_request.title }}
         body: |
