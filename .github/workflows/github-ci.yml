@@ -36,6 +36,7 @@ jobs:
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
       
       - name: Fetch PR details
+        id : fetch_pr_details
         uses: actions/github-script@v6
         with:
           script: |
@@ -58,7 +59,7 @@ jobs:
             const mergeCommitSha = data.merge_commit_sha;
             const firstCommitSha = commitsData[0].sha;
             console.log(`First commit SHA: ${firstCommitSha}`);
-            return { firstCommitSha };
+            return { firstCommitSha, mergeCommitSha };
             
       - name: Generate changelog
         if: github.ref == 'refs/heads/main'
