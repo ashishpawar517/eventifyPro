@@ -78,6 +78,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Create Release
+        if: github.ref == 'refs/heads/main'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -87,3 +88,8 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+      - name: changelog-ci
+      - uses: actions/checkout@v2
+
+      - name: Run Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
