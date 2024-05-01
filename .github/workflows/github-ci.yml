@@ -39,6 +39,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const { data } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });  
             const commitsUrl = data.commits_url;
             const { data: commitsData } = await github.rest.repos.listCommits({
               owner: context.repo.owner,
