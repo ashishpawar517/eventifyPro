@@ -44,8 +44,8 @@ jobs:
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fromTag: "50abed5" 
-          toTag: "4c7c6bc"
+          toTag: "50abed5" 
+          fromTag: "4c7c6bc"
           
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
