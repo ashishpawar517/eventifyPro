@@ -1,5 +1,11 @@
 
 
+## [dda5156024263f74bfaf99223fa58877d2202fef] - 2024-05-01
+### :memo: Documentation Changes
+- [`46025d1`](https://github.com/ashishpawar517/eventifyPro/commit/46025d1cb92da5557ad9c0cefa2c108ac51279a3) - update CHANGELOG.md for 44/merge [skip ci] *(commit by [@ashishpawar517](https://github.com/ashishpawar517))*
+- [`ff2dced`](https://github.com/ashishpawar517/eventifyPro/commit/ff2dced2b7e3ecd99ed95d3072376d201f5d4c55) - update CHANGELOG.md *(commit by [@ashishpawar517](https://github.com/ashishpawar517))*
+
+
 ## [24de87141def3232a13cc3e3758457f0ec679b95] - 2024-05-01
 ### :memo: Documentation Changes
 - [`46025d1`](https://github.com/ashishpawar517/eventifyPro/commit/46025d1cb92da5557ad9c0cefa2c108ac51279a3) - update CHANGELOG.md for 44/merge [skip ci] *(commit by [@ashishpawar517](https://github.com/ashishpawar517))*
@@ -14,3 +20,4 @@
 
 [4c7c6bc]: https://github.com/ashishpawar517/eventifyPro/compare/50abed5...4c7c6bc
 [24de87141def3232a13cc3e3758457f0ec679b95]: https://github.com/ashishpawar517/eventifyPro/compare/2de97066cc79feafe7cb13904e6082ebdf827363...24de87141def3232a13cc3e3758457f0ec679b95
+[dda5156024263f74bfaf99223fa58877d2202fef]: https://github.com/ashishpawar517/eventifyPro/compare/3a80da5f10618e4fb27bb73c411b358a22e6ac81...dda5156024263f74bfaf99223fa58877d2202fef
