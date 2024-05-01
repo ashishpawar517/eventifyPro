@@ -93,7 +93,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fromTag: ${{ env.TAG_NAME }}
-          toTag: ${{ steps.previoustag.outputs.tag }} 
+          toTag: "v1.0.10666" 
           
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
