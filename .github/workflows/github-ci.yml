@@ -48,10 +48,11 @@ jobs:
            
             const commitsUrl = data.commits_url;
             console.log(commitsUrl);
+            // Correctly fetch commits related to the pull request
             const { data: commitsData } = await github.rest.pulls.listPullRequestsCommits({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              sha: commitsUrl
+              pull_number: context.issue.number
             });
             cnosole.log(commitData)
             if (!commitsData.length) {
