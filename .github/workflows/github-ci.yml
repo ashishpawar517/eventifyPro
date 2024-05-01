@@ -28,12 +28,7 @@ jobs:
           distribution: "temurin"
           cache: maven
    
-      - name : Get Previous Tag
-        id: previoustag
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
-      
+     
       - name: Generate random number and date
         id: generate_values
         run: |
@@ -41,6 +36,7 @@ jobs:
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
           
       - name: Generate changelog
+        if: github.event.review.state == 'APPROVED'
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -49,6 +45,7 @@ jobs:
           excludeTypes: "other"
           
       - name: Commit CHANGELOG.md
+        if: github.event.review.state == 'APPROVED'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
