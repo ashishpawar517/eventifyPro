@@ -77,11 +77,18 @@ jobs:
           file: badge.svg
           
       - name: Generate changelog
-        uses: requarks/changelog-action@v3
+        uses: requarks/changelog-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           file: CHANGELOG.md
       
+      - name: Commit CHANGELOG.md
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: main
+          commit_message: 'docs: update CHANGELOG.md for ${{ github.ref_name }} [skip ci]'
+          file_pattern: CHANGELOG.md
+          
       - name: Generate random number and date
         id: generate_values
         run: |
@@ -97,6 +104,7 @@ jobs:
         with:
           tag_name: ${{ env.TAG_NAME }}
           release_name: ${{ env.RELEASE_NAME }}
+          body: ${{ steps.changelog.outputs.changes }}
           draft: false
           prerelease: false
       
