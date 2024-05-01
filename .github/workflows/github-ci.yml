@@ -45,28 +45,27 @@ jobs:
               pull_number: context.issue.number
             });  
             console.log(data);
-            const commitsUrl = data.commits_url;
-            console.log("url",commitsUrl);
+            const commitsUrl = pullRequestData.commits_url;
             const { data: commitsData } = await github.rest.repos.listCommits({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: commitsUrl
             });
+            cnosole.log(commitData)
             if (!commitsData.length) {
               throw new Error('No commits found for this pull request.');
             }
             const mergeCommitSha = data.merge_commit_sha;
-            const olderCommitSha = commitsData[0].sha; // Assuming the first commit is the oldest
-            console.log(`Merge commit SHA: ${mergeCommitSha}`);
-            console.log(`Older commit SHA: ${olderCommitSha}`);
-            return { mergeCommitSha, olderCommitSha };
+            const firstCommitSha = commitsData[0].sha;
+            console.log(`First commit SHA: ${firstCommitSha}`);
+            return { firstCommitSha };
             
       - name: Generate changelog
         if: github.ref == 'refs/heads/main'
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          toTag: ${{ steps.fetch_pr_details.outputs.olderCommitSha }}
+          toTag: ${{ steps.fetch_pr_details.outputs.firstCommitSha }}
           fromTag: ${{ steps.fetch_pr_details.outputs.mergeCommitSha }}
           excludeTypes: "other"
           
