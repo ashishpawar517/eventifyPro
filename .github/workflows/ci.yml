@@ -76,25 +76,29 @@ jobs:
           gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
           file: badge.svg
 
-      - name: Get previous tag
-        id: previousTag
-        run: |
-          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | tail -2 | head -1)
-          echo "previousTag: $name"
-          echo "previousTag=$name" >> $GITHUB_ENV
-  
+      - name : Get Previous Tag
+        id: previoustag
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 0.0.0 
+          
       - name: Generate random number and date
         id: generate_values
         run: |
           echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
-      
+          
       - name: Generate changelog
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fromTag: ${{ env.TAG_NAME }}
-          toTag: ${{ env.previousTag }}    
+          toTag: ${{ steps.previoustag.outputs.tag }} 
           
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
