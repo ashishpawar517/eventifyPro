@@ -46,7 +46,7 @@ jobs:
               pull_number: context.issue.number
             });  
             console.log(data);
-            const commitsUrl = pullRequestData.commits_url;
+            const commitsUrl = data.commits_url;
             const { data: commitsData } = await github.rest.repos.listCommits({
               owner: context.repo.owner,
               repo: context.repo.repo,
