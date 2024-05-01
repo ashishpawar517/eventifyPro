@@ -75,8 +75,12 @@ jobs:
           token: ${{ secrets.GIST_TOKEN }}
           gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
           file: badge.svg
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Generate random number and date
+        id: generate_values
+        run: |
+          echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
+  
       - name: Create Release
         if: github.ref == 'refs/heads/main'
         id: create_release
@@ -84,8 +88,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v1.0.${RANDOM}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: false
       
