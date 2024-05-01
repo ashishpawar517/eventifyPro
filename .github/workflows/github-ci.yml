@@ -34,18 +34,32 @@ jobs:
         run: |
           echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
-          
+      
+      - name: Fetch PR details
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            const mergeCommitSha = data.merge_commit_sha;
+            const olderCommitSha = data.commits[0].sha; // Assuming the first commit is the oldest
+            console.log(`Merge commit SHA: ${mergeCommitSha}`);
+            console.log(`Older commit SHA: ${olderCommitSha}`);
+            
       - name: Generate changelog
-        if: github.event.review.state == 'APPROVED'
+        if: github.ref == 'refs/heads/main'
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          toTag: ${{ github.event.pull_request.head.sha }}
-          fromTag: ${{ github.sha }}
+          toTag: ${{ steps.fetch_pr_details.outputs.olderCommitSha }}
+          fromTag: ${{ steps.fetch_pr_details.outputs.mergeCommitSha }}
           excludeTypes: "other"
           
       - name: Commit CHANGELOG.md
-        if: github.event.review.state == 'APPROVED'
+        if: github.ref == 'refs/heads/main'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
