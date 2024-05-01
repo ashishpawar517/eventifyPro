@@ -79,7 +79,7 @@ jobs:
       - name: Generate changelog
         uses: requarks/changelog-action@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           file: CHANGELOG.md
       
       - name: Commit CHANGELOG.md
