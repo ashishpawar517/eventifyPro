@@ -39,19 +39,20 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { data } = await github.rest.pulls.get({
+            const commitsUrl = data.commits_url;
+            const { data: commitsData } = await github.rest.repos.listCommits({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.issue.number
+              sha: commitsUrl
             });
-             console.log(data);
-             if (!data.commits || data.commits.length === 0) {
+            if (!commitsData.length) {
               throw new Error('No commits found for this pull request.');
             }
             const mergeCommitSha = data.merge_commit_sha;
-            const olderCommitSha = data.commits[0].sha; // Assuming the first commit is the oldest
+            const olderCommitSha = commitsData[0].sha; // Assuming the first commit is the oldest
             console.log(`Merge commit SHA: ${mergeCommitSha}`);
             console.log(`Older commit SHA: ${olderCommitSha}`);
+            return { mergeCommitSha, olderCommitSha };
             
       - name: Generate changelog
         if: github.ref == 'refs/heads/main'
