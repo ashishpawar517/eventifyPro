@@ -52,19 +52,19 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
-          commit_message: 'docs: update CHANGELOG.md'
+          commit_message: 'docs: update CHANGELOG.md (#${{ github.event.pull_request.number }})'
           file_pattern: CHANGELOG.md       
    
-      # - name: Create Release
-      #   if: github.ref == 'refs/heads/main'
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      #   with:
-      #     tag_name: ${{ env.TAG_NAME }}
-      #     release_name: ${{ env.RELEASE_NAME }}
-      #     body: ${{ steps.changelog.outputs.changes }}
-      #     draft: false
-      #     prerelease: false
+      - name: Create Release
+        if: github.ref == 'refs/heads/main'
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: ${{ env.RELEASE_NAME }}
+          body: ${{ steps.changelog.outputs.changes }}
+          draft: false
+          prerelease: false
       
