@@ -44,6 +44,10 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number
             });
+             console.log(data);
+             if (!data.commits || data.commits.length === 0) {
+              throw new Error('No commits found for this pull request.');
+            }
             const mergeCommitSha = data.merge_commit_sha;
             const olderCommitSha = data.commits[0].sha; // Assuming the first commit is the oldest
             console.log(`Merge commit SHA: ${mergeCommitSha}`);
