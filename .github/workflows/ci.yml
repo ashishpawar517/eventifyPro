@@ -91,3 +91,7 @@ jobs:
       
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
+        with:
+          changelog_filename: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
