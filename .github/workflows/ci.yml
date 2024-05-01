@@ -75,6 +75,13 @@ jobs:
           token: ${{ secrets.GIST_TOKEN }}
           gistURL: https://gist.github.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437
           file: badge.svg
+          
+      - name: Generate changelog
+        uses: requarks/changelog-action@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          file: CHANGELOG.md
+      
       - name: Generate random number and date
         id: generate_values
         run: |
