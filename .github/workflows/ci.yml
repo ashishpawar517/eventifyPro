@@ -77,7 +77,7 @@ jobs:
           file: badge.svg
           
       - name: Generate changelog
-        uses: requarks/changelog-action@v2
+        uses: requarks/changelog-action@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           file: CHANGELOG.md
