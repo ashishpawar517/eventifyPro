@@ -1,19 +1,32 @@
-- name: Comment PR
-  uses: actions/github-script@v5
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    script: |
-      const { owner, repo } = context.repo;
-      const prNumber = context.issue.number;
-      const comment = `This PR is ready to merge`;
+name: Comment PR Ready to Merge
 
-      try {
-        await github.issues.createComment({
-          owner,
-          repo,
-          issue_number: prNumber,
-          body: comment
-        });
-      } catch (error) {
-        console.error('Failed to post comment:', error);
-      }
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  comment_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Comment PR
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            const prNumber = context.issue.number;
+            const comment = `This PR is ready to merge`;
+      
+            try {
+              await github.issues.createComment({
+                owner,
+                repo,
+                issue_number: prNumber,
+                body: comment
+              });
+            } catch (error) {
+              console.error('Failed to post comment:', error);
+            }
