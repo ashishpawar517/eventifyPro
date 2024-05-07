@@ -37,8 +37,8 @@ jobs:
         uses: requarks/changelog-action@v1
         with:
           token: ${{ github.token }}
-          fromTag: ${{ github.ref_name }}
-          toTag: ${{ env.previousTag }}
+          toTag: ${{ github.ref_name }}
+          fromTag: ${{ env.previousTag }}
           writeToFile: false
 
       - name: Commit CHANGELOG.md
