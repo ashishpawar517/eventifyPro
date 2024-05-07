@@ -1,0 +1,38 @@
+name: Generate Changelog
+
+on:
+  pull_request_review:
+    types: [submitted]
+  pull_request:
+    types: [edited, synchronized]
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog
+        id: generate-changelog
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post Changelog Message
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pullRequest = context.payload.pull_request;
+            const body = `Changelog updated:\n\n${process.env.CHANGELOG}`;
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pullRequest.number,
+              body: body
+            });
+        env:
+          CHANGELOG: ${{ steps.generate-changelog.outputs.changelog }}
