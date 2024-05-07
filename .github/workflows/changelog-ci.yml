@@ -9,19 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Fetch the last PR comment
-        id: fetch_comment
-        run: |
-          PR_NUMBER=$(echo "${{ github.event.pull_request.number }}" | tr -d '"')
-          COMMENT=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/issues/comments?issue=$PR_NUMBER&sort=created&order=desc" | jq -r '.[0].body' | grep -oP 'Release version:\s\K\d+\.\d+\.\d+')
-          echo "::set-output name=comment::$COMMENT"
-
-      - name: Run Changelog CI
-        uses: saadmk11/changelog-ci@v1.1.2
-        with:
+    - name: Clone repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Get next version
+      id: get_next_version
+      uses: thenativeweb/get-next-version@main
+      with:
+        prefix: 'v' # optional, defaults to ''
+    - name: Show the next version
+      run: |
+        echo ${{ steps.get_next_version.outputs.version }}
+        echo ${{ steps.get_next_version.outputs.hasNextVersion }}
+    
+    - name: checkout v2  
+    - uses: actions/checkout@v2
+ 
+    - name: Run Changelog CI
+      uses: saadmk11/changelog-ci@v1.1.2
+      with:
           changelog_filename: CHANGELOG.md
-          release_version: ${{ steps.fetch_comment.outputs.comment }}
+          release_version: ${{ steps.get_next_version.outputs.hasNextVersion }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
