@@ -6,54 +6,71 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-# name: GH-Repository-CI
+name: GH-Repository-CI
 
-# on:
-#   push:
-#     branches: ["main"]
-#   pull_request:
-#     branches: ["main"]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
-# jobs:
-#   build:
-#     permissions: write-all
-#     runs-on: ubuntu-latest
+jobs:
+  build:
+    permissions: write-all
+    runs-on: ubuntu-latest
 
-# steps:
-#   - name: Generate random number and date
-#     id: generate_values
-#     run: |
-#       echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
-#       echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
-#   - name: Get PR Commits
-#         id: get_pr_commits
-#         uses: tim-actions/get-pr-commits@master
-#         with:
-#           token: ${{ secrets.GITHUB_TOKEN }}
+steps:
+  - name: Generate random number and date
+    id: generate_values
+    run: |
+      echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
+      echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
+  - name: Checkout Code
+    uses: actions/checkout@v3
 
-#   - name: Generate changelog
-#     uses: requarks/changelog-action@v1
-#     with:
-#       token: ${{ secrets.GITHUB_TOKEN }}
-#       toTag: ${{ steps.get_pr_commits.outputs.firstCommitSha }}
-#       fromTag: ${{ steps.get_pr_commits.outputs.mergeCommitSha }}
-#       excludeTypes: "other"
+  - name: Get Next Semver Version
+    id: semver
+    uses: ietf-tools/semver-action@v1
+    with:
+      token: ${{ github.token }}
+      branch: main
+      noVersionBumpBehavior: warn
 
-#   - name: Commit CHANGELOG.md
-#     uses: stefanzweifel/git-auto-commit-action@v4
-#     with:
-#       branch: main
-#       commit_message: 'docs: update CHANGELOG.md (#${{ github.event.pull_request.number }})'
-#       file_pattern: CHANGELOG.md
+  - name: Create Tag
+    uses: rickstaa/action-create-tag@v1
+    if: ${{ steps.semver.outputs.next != '' }}
+    with:
+      tag: ${{ steps.semver.outputs.next }}
+      tag_exists_error: false
+      message: "Automatic tag ${{ steps.semver.outputs.next }}"
 
-#   # - name: Create Release
-#   #   id: create_release
-#   #   uses: actions/create-release@v1
-#   #   env:
-#   #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#   #   with:
-#     tag_name: ${{ env.TAG_NAME }}
-#     release_name: ${{ env.RELEASE_NAME }}
-#     body: ${{ steps.changelog.outputs.changes }}
-#     draft: false
-#     prerelease: false
+  - name: Update CHANGELOG
+    id: changelog
+    uses: requarks/changelog-action@v1
+    if: ${{ steps.semver.outputs.next != '' }}
+    with:
+      token: ${{ github.token }}
+      fromTag: ${{ steps.semver.outputs.next }}
+      toTag: ${{ steps.semver.outputs.current }}
+      excludeTypes: "chore,ci,docs,style,test,release"
+
+  - name: Create Release
+    uses: ncipollo/release-action@v1
+    id: release
+    if: ${{ steps.semver.outputs.next != '' }}
+    with:
+      allowUpdates: true
+      draft: false
+      makeLatest: true
+      name: ${{ steps.semver.outputs.next }}
+      tag: ${{ steps.semver.outputs.next }}
+      body: ${{ steps.changelog.outputs.changes }}
+      token: ${{ github.token }}
+
+  - name: Commit CHANGELOG.md
+    uses: stefanzweifel/git-auto-commit-action@v4
+    if: ${{ steps.semver.outputs.next != '' }}
+    with:
+      branch: ${{ github.head_ref }}
+      commit_message: "release: changelog for ${{ steps.semver.outputs.next }} [skip ci]"
+      file_pattern: CHANGELOG.md
