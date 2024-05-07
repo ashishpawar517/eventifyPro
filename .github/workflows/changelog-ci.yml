@@ -30,6 +30,9 @@ jobs:
 
       - name: checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
