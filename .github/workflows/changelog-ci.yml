@@ -28,11 +28,6 @@ jobs:
         run: |
           echo ${{ steps.get_next_version.outputs.version }}
 
-      - name: checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
         with:
