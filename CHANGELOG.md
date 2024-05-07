@@ -1,3 +1,10 @@
+# Version: v1.0.10667
+
+* [#43](https://github.com/ashishpawar517/eventifyPro/pull/43): ci: fix changelog ci error
+* [#44](https://github.com/ashishpawar517/eventifyPro/pull/44): Fix: changelog ci service
+* [#46](https://github.com/ashishpawar517/eventifyPro/pull/46): Ci: update changelog-ci.yml
+
+
 
 
 ## [dda5156024263f74bfaf99223fa58877d2202fef] - 2024-05-01
