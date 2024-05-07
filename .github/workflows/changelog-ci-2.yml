@@ -3,7 +3,7 @@ name: Changelog-CI
 # Controls when the action will run. Triggers the workflow on pull request
 on:
   pull_request:
-    types: [opened, reopened]
+    branches: ["main"]
 
 jobs:
   build:
