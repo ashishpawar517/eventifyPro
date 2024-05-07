@@ -33,8 +33,7 @@ jobs:
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          fromTag: ${{ env.BASE_SHA }}
-          toTag: ${{ env.HEAD_SHA }}
+          tag: ${{ env.BASE_SHA }} # Assuming BASE_SHA represents the tag you want to use
           excludeTypes: "other"
           writeToFile: true
           changelogFilePath: CHANGELOG.md
