@@ -1,12 +1,4 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: GH-Repository-CI
+name: Comment PR Ready to Merge
 
 on:
   push:
@@ -15,48 +7,39 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
-    permissions: write-all
+  comment_pr:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
         with:
-          fetch-depth: 0
+          message: |
+            PR is ready to merge ! :+1:
 
-      - name: Get previous tag
-        id: previousTag
-        run: |
-          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | tail -2 | head -1)
-          echo "previousTag: $name"
-          echo "previousTag=$name" >> $GITHUB_ENV
+      - name: Print PR Head SHA
+        run: echo "${{ github.event.pull_request.head.sha }}" >> HEAD_SHA
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: Update CHANGELOG
-        id: changelog
+      - name: Print PR Base SHA
+        run: echo "${{ github.event.pull_request.base.sha }}" >> BASE_SHA
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
+      - name: Generate changelog
         uses: requarks/changelog-action@v1
         with:
-          token: ${{ github.token }}
-          toTag: ${{ github.ref_name }}
-          fromTag: ${{ env.previousTag }}
-          writeToFile: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fromTag: ${{ env.BASE_SHA }}
+          toTag: ${{ env.HEAD_SHA }}
+          excludeTypes: "other"
 
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: ${{github.ref}}
-          commit_message: "docs: update CHANGELOG.md (#${{ github.event.pull_request.number }})"
+          branch: ${{ github.head_ref }}
+          commit_message: "docs: update CHANGELOG.md (#${{ github.event.pull_request.number }}, branch: ${{ github.head_ref }})"
           file_pattern: CHANGELOG.md
-
-      # - name: Create Release
-      #   if: github.ref == 'refs/heads/main'
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      #   with:
-      #     tag_name: ${{ env.TAG_NAME }}
-      #     release_name: ${{ env.RELEASE_NAME }}
-      #     body: ${{ steps.changelog.outputs.changes }}
-      #     draft: false
-      #     prerelease: false
