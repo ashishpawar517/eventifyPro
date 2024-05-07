@@ -24,12 +24,10 @@ jobs:
         with:
           prefix: "v" # optional, defaults to ''
 
-      - name: Show the next version
-        run: |
-          echo ${{ steps.get_next_version.outputs.version }}
-
-      - name: Unshallow repository if necessary
-        run: git fetch --prune --tags --unshallow
+      - name: Checkout PR branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
