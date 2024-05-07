@@ -1,8 +1,9 @@
-[![CI Status](https://github.com/ashishpawar517/eventifyPro/actions/workflows/ci.yml/badge.svg)](https://github.com/ashishpawar517/eventifyPro/actions/workflows/ci.yml)
+[![Java CI with Maven](https://github.com/ashishpawar517/eventifyPro/actions/workflows/maven-ci.yml/badge.svg)](https://github.com/ashishpawar517/eventifyPro/actions/workflows/maven-ci.yml)
 ![](https://gist.githubusercontent.com/ashishpawar517/93d4a632e590d5dbd9cc0a6bc7454437/raw/badge.svg)
 ![](https://img.shields.io/badge/java-17-blue)
-+![](https://img.shields.io/badge/springboot-3.2.5-green)
-+![](https://img.shields.io/badge/database-H2-purple)
+![](https://img.shields.io/badge/springboot-3.2.5-green)
+![](https://img.shields.io/badge/database-H2-purple)
+
 # EventifyPro - Event Booking Platform
 
 ## Description
