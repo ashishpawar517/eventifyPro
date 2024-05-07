@@ -1,11 +1,9 @@
 name: Changelog CI
 
 on:
-  # pull_request_review:
-  #   types: [submitted]
-  pull_request:
-    branches: ["main"]
-
+  pull_request_review:
+    types: [submitted]
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,3 +33,9 @@ jobs:
           changelog_filename: CHANGELOG.md
           release_version: ${{ steps.get_next_version.outputs.version }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Changelog updated ! PR is ready to merge ! :+1:
