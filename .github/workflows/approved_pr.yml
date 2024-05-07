@@ -3,6 +3,8 @@ name: Comment PR Ready to Merge
 on:
   pull_request_review:
     types: [submitted]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   comment_pr:
@@ -16,15 +18,14 @@ jobs:
         with:
           message: |
             PR is ready to merge ! :+1:
-      
+
       - name: Get PR Commits
-            id: get_pr_commits
-            uses: tim-actions/get-pr-commits@master
-            with:
-              token: ${{ secrets.GITHUB_TOKEN }}
-      
+        id: get_pr_commits
+        uses: tim-actions/get-pr-commits@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Print Commits
         run: |
           echo "Commits:"
           echo "${{ steps.get-pr-commits.outputs }}"
-      
