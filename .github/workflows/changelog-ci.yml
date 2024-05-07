@@ -1,39 +1,35 @@
-name: Generate Changelog
+name: Changelog CI
 
 on:
   pull_request_review:
     types: [submitted]
 
 jobs:
-  generate-changelog:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Clone repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Generate Changelog
-        id: generate-changelog
-        uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Append Changelog to CHANGELOG.md
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Get next version
+        id: get_next_version
+        uses: thenativeweb/get-next-version@main
+        with:
+          prefix: "v" # optional, defaults to ''
+      - name: Show the next version
         run: |
-          echo "${{ steps.generate-changelog.outputs.changelog }}" >> CHANGELOG.md
+          echo ${{ steps.get_next_version.outputs.version }}
+          echo ${{ steps.get_next_version.outputs.hasNextVersion }}
 
-      - name: Commit and Push Changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          default_author: github_actions
-          message: "Update CHANGELOG.md"
-          push: true
-          branch: ${{ github.event.pull_request.head.ref }}
+      - name: checkout v2
+      - uses: actions/checkout@v2
 
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Run Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
         with:
-          message: |
-            PR is ready to merge ! :+1: Changelog updated.
+          changelog_filename: CHANGELOG.md
+          release_version: ${{ steps.get_next_version.outputs.hasNextVersion }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
