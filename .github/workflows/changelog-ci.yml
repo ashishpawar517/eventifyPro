@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Generate Changelog
         id: generate-changelog
@@ -29,6 +30,7 @@ jobs:
           default_author: github_actions
           message: "Update CHANGELOG.md"
           push: true
+          branch: ${{ github.event.pull_request.head.ref }}
 
       - name: Post Changelog Message
         uses: actions/github-script@v6
