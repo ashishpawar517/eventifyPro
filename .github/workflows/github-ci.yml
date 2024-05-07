@@ -20,11 +20,6 @@ jobs:
     runs-on: ubuntu-latest
 
 steps:
-  - name: Generate random number and date
-    id: generate_values
-    run: |
-      echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
-      echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
   - name: Checkout Code
     uses: actions/checkout@v3
 
@@ -52,7 +47,7 @@ steps:
       token: ${{ github.token }}
       fromTag: ${{ steps.semver.outputs.next }}
       toTag: ${{ steps.semver.outputs.current }}
-      excludeTypes: "chore,ci,docs,style,test,release"
+      excludeTypes: "other"
 
   - name: Create Release
     uses: ncipollo/release-action@v1
