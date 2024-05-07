@@ -15,20 +15,11 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Generate Changelog
-        id: generate-changelog
-        uses: github-changelog-generator/github-changelog-generator@v1
+        uses: saadmk11/changelog-ci@v1.0.4
         with:
-          configure-sections:
-            "added=\n\n### :memo: Documentation Changes\n^docs"
-            "changed=\n\n### :construction_worker: Build System\n^ci"
-          ignore-labels: "duplicate,question,invalid,wontfix"
-          max-issues: 0
-          exclude-pull-requests: false
-          exclude-pull-request-labels: "skip-changelog"
-          date-format: "yyyy-MM-dd"
-          output: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          config-path: ".github/changelog-config.yml"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Commit and Push Changes
         uses: EndBug/add-and-commit@v9
         with:
