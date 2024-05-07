@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions: write-all
 
     steps:
       - name: Clone repository
@@ -26,9 +27,8 @@ jobs:
       - name: Show the next version
         run: |
           echo ${{ steps.get_next_version.outputs.version }}
-          echo ${{ steps.get_next_version.outputs.hasNextVersion }}
 
-      - name: Clone repository
+      - name: checkout repository
         uses: actions/checkout@v2
 
       - name: Run Changelog CI
@@ -37,4 +37,3 @@ jobs:
           changelog_filename: CHANGELOG.md
           release_version: ${{ steps.get_next_version.outputs.version }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          reference_path: ${{ github.event.pull_request.head.ref }}
