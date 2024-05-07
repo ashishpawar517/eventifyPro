@@ -1,3 +1,11 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: GH-Repository-CI
 
 on:
@@ -20,54 +28,35 @@ jobs:
           distribution: "temurin"
           cache: maven
 
+      - name: Get Previous Tag
+        id: previoustag
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Required due to the way Git works, without it this action won't be able to find any or the correct tags
+
       - name: Generate random number and date
         id: generate_values
         run: |
           echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
 
-      - name: Fetch PR details
-        id: fetch_pr_details
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });  
-            console.log(data);
-            const commitsUrl = data.commits_url;
-            const { data: commitsData } = await github.rest.repos.listCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: commitsUrl
-            });
-            cnosole.log(commitData)
-            if (!commitsData.length) {
-              throw new Error('No commits found for this pull request.');
-            }
-            const mergeCommitSha = data.merge_commit_sha;
-            const firstCommitSha = commitsData[0].sha;
-            console.log(`First commit SHA: ${firstCommitSha}`);
-            return { firstCommitSha, mergeCommitSha };
-
       - name: Generate changelog
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          toTag: ${{ steps.fetch_pr_details.outputs.firstCommitSha }}
-          fromTag: ${{ steps.fetch_pr_details.outputs.mergeCommitSha }}
+          toTag: ${{ github.event.pull_request.head.sha }}
+          fromTag: ${{ github.sha }}
           excludeTypes: "other"
 
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: ${{github.ref}}
+          branch: main
           commit_message: "docs: update CHANGELOG.md (#${{ github.event.pull_request.number }})"
           file_pattern: CHANGELOG.md
 
       - name: Create Release
+        if: github.ref == 'refs/heads/main'
         id: create_release
         uses: actions/create-release@v1
         env:
