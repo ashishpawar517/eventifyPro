@@ -33,8 +33,6 @@ jobs:
           changelog_filename: CHANGELOG.md
           release_version: ${{ steps.get_next_version.outputs.version }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          committer_username: "ashishpawar517"
-          committer_email: "ashishpawar517.icloud@gmail.com"
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v2
