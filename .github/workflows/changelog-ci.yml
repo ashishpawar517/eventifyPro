@@ -2,7 +2,7 @@ name: Changelog CI
 
 on:
   pull_request:
-    types: [ opened ]
+    branches: ["main"]
 
   # Optionally you can use `workflow_dispatch` to run Changelog CI Manually
   workflow_dispatch:
