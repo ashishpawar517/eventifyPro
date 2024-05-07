@@ -36,9 +36,12 @@ jobs:
           fromTag: ${{ env.BASE_SHA }}
           toTag: ${{ env.HEAD_SHA }}
           excludeTypes: "other"
-        env:
-          BASE_SHA: ${{ env.BASE_SHA }}
-          HEAD_SHA: ${{ env.HEAD_SHA }}
+          writeToFile: true
+          changelogFilePath: CHANGELOG.md
+          includeRefIssues: true
+          useGitmojis: true
+          includeInvalidCommits: false
+          reverseOrder: false
 
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
