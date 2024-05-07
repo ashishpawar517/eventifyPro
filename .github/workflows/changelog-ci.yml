@@ -15,7 +15,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Generate Changelog
-        uses: saadmk11/changelog-ci@v1.0.4
+        uses: saadmk11/changelog-ci@v1.1.2
         with:
           config-path: ".github/changelog-config.yml"
           token: ${{ secrets.GITHUB_TOKEN }}
