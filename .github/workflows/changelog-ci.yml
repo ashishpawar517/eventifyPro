@@ -18,7 +18,6 @@ jobs:
         id: generate-changelog
         uses: github-changelog-generator/github-changelog-generator@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           configure-sections:
             "added=\n\n### :memo: Documentation Changes\n^docs"
             "changed=\n\n### :construction_worker: Build System\n^ci"
@@ -28,7 +27,8 @@ jobs:
           exclude-pull-request-labels: "skip-changelog"
           date-format: "yyyy-MM-dd"
           output: CHANGELOG.md
-
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit and Push Changes
         uses: EndBug/add-and-commit@v9
         with:
