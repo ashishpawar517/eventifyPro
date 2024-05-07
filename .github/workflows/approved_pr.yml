@@ -19,13 +19,12 @@ jobs:
           message: |
             PR is ready to merge ! :+1:
 
-      - name: Get PR Commits
-        id: get_pr_commits
-        uses: tim-actions/get-pr-commits@master
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print PR Head SHA
+        run: echo "PR Head SHA: ${{ github.event.pull_request.head.sha }}"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: Print Commits
-        run: |
-          echo "Commits:"
-          echo "${{ steps.get_pr_commits.outputs.commits[0] }}"
+      - name: Print PR Base SHA
+        run: echo "PR Base SHA: ${{ github.event.pull_request.base.sha }}"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
