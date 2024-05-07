@@ -11,7 +11,7 @@ name: GH-Repository-CI
 on:
   push:
     branches: ["main"]
-  pull_request:
+  pull_request: 
     branches: ["main"]
 
 jobs:
@@ -20,76 +20,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: "17"
-          distribution: "temurin"
-          cache: maven
-   
-     
       - name: Generate random number and date
         id: generate_values
         run: |
           echo "TAG_NAME=v1.0.$RANDOM" >> $GITHUB_ENV
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
-      
-      - name: Fetch PR details
-        id : fetch_pr_details
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data } = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });  
-           
-            const commitsUrl = data.commits_url;
-            console.log(commitsUrl);
-            // Correctly fetch commits related to the pull request
-            const { data: commitsData } = await github.rest.pulls.listPullRequestsCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-            cnosole.log(commitData)
-            if (!commitsData.length) {
-              throw new Error('No commits found for this pull request.');
-            }
-            const mergeCommitSha = data.merge_commit_sha;
-            const firstCommitSha = commitsData[0].sha;
-            console.log(`First commit SHA: ${firstCommitSha}`);
-            return { firstCommitSha, mergeCommitSha };
-            
+      - name: Get PR Commits
+            id: get_pr_commits
+            uses: tim-actions/get-pr-commits@master
+            with:
+              token: ${{ secrets.GITHUB_TOKEN }}
+     
       - name: Generate changelog
-        if: github.ref == 'refs/heads/main'
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          toTag: ${{ steps.fetch_pr_details.outputs.firstCommitSha }}
-          fromTag: ${{ steps.fetch_pr_details.outputs.mergeCommitSha }}
+          toTag: ${{ steps.get_pr_commits.outputs.firstCommitSha }}
+          fromTag: ${{ steps.get_pr_commits.outputs.mergeCommitSha }}
           excludeTypes: "other"
-          
+
       - name: Commit CHANGELOG.md
-        if: github.ref == 'refs/heads/main'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: main
           commit_message: 'docs: update CHANGELOG.md (#${{ github.event.pull_request.number }})'
-          file_pattern: CHANGELOG.md       
-   
-      - name: Create Release
-        if: github.ref == 'refs/heads/main'
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: ${{ env.RELEASE_NAME }}
-          body: ${{ steps.changelog.outputs.changes }}
-          draft: false
-          prerelease: false
-      
+          file_pattern: CHANGELOG.md
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #   with:
+      #     tag_name: ${{ env.TAG_NAME }}
+      #     release_name: ${{ env.RELEASE_NAME }}
+      #     body: ${{ steps.changelog.outputs.changes }}
+      #     draft: false
+      #     prerelease: false
