@@ -28,4 +28,5 @@ jobs:
       - name: Print Commits
         run: |
           echo "Commits:"
-          echo "${{ steps.get_pr_commits.outputs.commits }}"
+          echo "${{ steps.get_pr_commits.outputs.commits.at[0].sha }}"
+          echo "${{ steps.get_pr_commits.outputs.commits.at[-1].sha }}"
