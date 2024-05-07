@@ -20,11 +20,11 @@ jobs:
             PR is ready to merge ! :+1:
 
       - name: Print PR Head SHA
-        run: echo "PR Head SHA: ${{ github.event.pull_request.head.sha }}"
+        run: echo "${{ github.event.pull_request.head.sha }}"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
 
       - name: Print PR Base SHA
-        run: echo "PR Base SHA: ${{ github.event.pull_request.base.sha }}"
+        run: echo "${{ github.event.pull_request.base.sha }}"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
