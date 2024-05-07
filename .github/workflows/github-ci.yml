@@ -36,6 +36,9 @@ jobs:
           fromTag: ${{ env.BASE_SHA }}
           toTag: ${{ env.HEAD_SHA }}
           excludeTypes: "other"
+        env:
+          BASE_SHA: ${{ env.BASE_SHA }}
+          HEAD_SHA: ${{ env.HEAD_SHA }}
 
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
