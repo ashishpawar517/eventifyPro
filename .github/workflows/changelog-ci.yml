@@ -5,6 +5,8 @@ on:
     types: [submitted]
   pull_request:
     types: [edited, synchronized]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   generate-changelog:
