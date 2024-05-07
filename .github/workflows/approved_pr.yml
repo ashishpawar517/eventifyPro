@@ -33,8 +33,8 @@ jobs:
         uses: requarks/changelog-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          toTag: ${{ env.BASE_SHA }}
-          fromTag: ${{ env.HEAD_SHA }}
+          fromTag: ${{ env.BASE_SHA }}
+          toTag: ${{ env.HEAD_SHA }}
           excludeTypes: "other"
 
       - name: Commit CHANGELOG.md
