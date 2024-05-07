@@ -24,7 +24,7 @@ jobs:
               token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Print Commits
-      run: |
-        echo "Commits:"
-        echo "${{ steps.get-pr-commits.outputs }}"
-     
+        run: |
+          echo "Commits:"
+          echo "${{ steps.get-pr-commits.outputs }}"
+      
