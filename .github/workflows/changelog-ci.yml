@@ -28,6 +28,9 @@ jobs:
         run: |
           echo ${{ steps.get_next_version.outputs.version }}
 
+      - name: Unshallow repository if necessary
+        run: git fetch --unshallow
+
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
         with:
