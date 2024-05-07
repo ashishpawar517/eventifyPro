@@ -3,15 +3,8 @@ ame: Create new application release
 # We want releases to trigger on pushes to main, and also on manual dispatch,
 # so we can trigger a release manually, mainly for testing or rollbacks.
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-    inputs:
-      deployed-tag:
-        description: "Deployed tag"
-        required: false
-        default: ""
+  pull_request:
+    branches: ["main"]
 
 jobs:
   release:
