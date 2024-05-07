@@ -1,50 +1,76 @@
-name: Comment PR Ready to Merge
+name: Generate Changelog and Post Comment
 
 on:
-  push:
-    branches: ["main"]
+  pull_request_review:
+    types: [submitted] # Trigger on submission of a review
   pull_request:
-    branches: ["main"]
+    types: [opened, synchronize]
 
 jobs:
-  comment_pr:
+  changelog:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v2
         with:
-          message: |
-            PR is ready to merge ! :+1:
+          fetch-depth: 0 # Fetch all history for all branches and tags
 
-      - name: Print PR Head SHA
-        run: echo "${{ github.event.pull_request.head.sha }}" >> HEAD_SHA
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-
-      - name: Print PR Base SHA
-        run: echo "${{ github.event.pull_request.base.sha }}" >> BASE_SHA
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-
-      - name: Generate changelog
-        uses: requarks/changelog-action@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ env.BASE_SHA }} # Assuming BASE_SHA represents the tag you want to use
-          excludeTypes: "other"
-          writeToFile: true
-          changelogFilePath: CHANGELOG.md
-          includeRefIssues: true
-          useGitmojis: true
-          includeInvalidCommits: false
-          reverseOrder: false
+          node-version: "14"
 
-      - name: Commit CHANGELOG.md
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Changelog
+        id: changelog
+        uses: actions/github-script@v5
         with:
-          branch: ${{ github.head_ref }}
-          commit_message: "docs: update CHANGELOG.md (#${{ github.event.pull_request.number }}, branch: ${{ github.head_ref }})"
-          file_pattern: CHANGELOG.md
+          script: |
+            const { owner, repo } = context.repo;
+            const { head_sha } = context.payload.pull_request;
+            const mainSha = await github.rest.repos.getBranch({
+              owner,
+              repo,
+              branch: 'main'
+            }).then(res => res.data.commit.sha);
+            const lastCommitSha = await github.rest.repos.getCommit({
+              owner,
+              repo,
+              ref: head_sha
+            }).then(res => res.data.sha);
+            const diff = await github.rest.repos.compareCommits({
+              owner,
+              repo,
+              base: mainSha,
+              head: lastCommitSha
+            }).then(res => res.data.diff);
+            // Logic to generate changelog from diff
+            // This is a placeholder for your changelog generation logic
+            const changelog = "Generated Changelog"; // Replace with actual changelog generation logic
+            return changelog;
+
+      - name: Commit and Push Changelog
+        # if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add CHANGELOG.md
+          git commit -m "Add changelog"
+          git push
+
+      - name: Post Comment on PR
+        # if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const { head_sha } = context.payload.pull_request;
+            const comment = `Changelog added. PR is ready to merge.`;
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: context.payload.pull_request.number,
+              body: comment
+            });
