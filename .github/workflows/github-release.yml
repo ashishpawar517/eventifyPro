@@ -22,6 +22,11 @@ jobs:
         with:
           prefix: "v" # optional, defaults to ''
 
+      - name: Generate random number and date
+        id: generate_values
+        run: |
+          echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
+
       - name: Create Release
         if: github.ref == 'refs/heads/main'
         id: create_release
@@ -29,7 +34,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ env.TAG_NAME }}
-          release_name: ${{ steps.get_next_version.outputs.version }}
+          tag_name: ${{ steps.get_next_version.outputs.version }}
+          release_name: ${{ env.RELEASE_NAME }}
           draft: false
           prerelease: false
