@@ -19,6 +19,7 @@ jobs:
         with:
           config-path: ".github/changelog-config.yml"
           token: ${{ secrets.GITHUB_TOKEN }}
+          release_version: ${{ github.event.pull_request.head.ref }}
 
       - name: Commit and Push Changes
         uses: EndBug/add-and-commit@v9
