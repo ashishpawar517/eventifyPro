@@ -1,8 +1,10 @@
 name: Changelog CI
 
 on:
-  pull_request_review:
-    types: [submitted]
+  # pull_request_review:
+  #   types: [submitted]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
@@ -32,3 +34,4 @@ jobs:
           changelog_filename: CHANGELOG.md
           release_version: ${{ steps.get_next_version.outputs.hasNextVersion }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          reference_path: ${{ github.event.pull_request.head.ref }}
