@@ -28,4 +28,4 @@ jobs:
       - name: Print Commits
         run: |
           echo "Commits:"
-          echo "${{ steps.get_pr_commits.outputs }}"
+          echo "${{ steps.get_pr_commits.outputs.commits }}"
