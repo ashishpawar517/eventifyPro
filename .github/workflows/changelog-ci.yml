@@ -32,16 +32,17 @@ jobs:
           push: true
           branch: ${{ github.event.pull_request.head.ref }}
 
-      - name: Post Changelog Message
-        uses: actions/github-script@v6
+      - name: Comment PR
+        uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pullRequest = context.payload.pull_request;
-            const body = `Changelog updated and appended to CHANGELOG.md. PR is ready to merge.`;
-            await github.rest.issues.updateComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pullRequest.number,
-              body: body
+            const { owner, repo } = context.repo;
+            const prNumber = context.issue.number;
+            const comment = `This PR is ready to merge`;
+            await github.issues.createComment({
+              owner,
+              repo,
+              issue_number: prNumber,
+              body: comment
             });
