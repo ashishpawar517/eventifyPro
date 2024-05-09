@@ -3,6 +3,7 @@
 ![](https://img.shields.io/badge/java-17-blue)
 ![](https://img.shields.io/badge/springboot-3.2.5-green)
 ![](https://img.shields.io/badge/database-H2-purple)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser)
 
 # EventifyPro - Event Booking Platform
 
