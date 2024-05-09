@@ -16,14 +16,15 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Get next version
-        id: get_next_version
-        uses: thenativeweb/get-next-version@main
+      - name: Generate release tag
+        id: generate_release_tag
+        uses: alexvingg/next-release-tag@v1.0.3
         with:
-          prefix: "v" # optional, defaults to ''
-      
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: ""
+
       - name: Print Next Version
-        run: echo "Next version = ${{steps.get_next_version.outputs.next_version}}"
+        run: echo "Next version = ${{steps.generate_release_tag.outputs.release_tag}}"
 
       - name: Checkout PR branch
         uses: actions/checkout@v2
@@ -34,7 +35,7 @@ jobs:
         uses: saadmk11/changelog-ci@v1.1.2
         with:
           changelog_filename: CHANGELOG.md
-          release_version: ${{ steps.get_next_version.outputs.version }}
+          release_version: ${{ steps.generate_release_tag.outputs.release_tag }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment PR
