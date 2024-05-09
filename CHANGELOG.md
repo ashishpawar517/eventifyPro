@@ -1,3 +1,101 @@
+# [](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.10667...v) (2024-05-09)
+
+
+### Bug Fixes
+
+* ci changelog ([f25e108](https://github.com/ashishpawar517/eventifyPro/commit/f25e1085a50db826c193426ff2f8f25e580a3248))
+* issue in steps output ci ([#53](https://github.com/ashishpawar517/eventifyPro/issues/53)) ([6c033b4](https://github.com/ashishpawar517/eventifyPro/commit/6c033b461db25ca367127b47fc61b92dca5b47d2))
+
+
+
+## [1.0.10667](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.10666...v1.0.10667) (2024-05-07)
+
+
+### Bug Fixes
+
+* error in github release CI ([#50](https://github.com/ashishpawar517/eventifyPro/issues/50)) ([ae5377d](https://github.com/ashishpawar517/eventifyPro/commit/ae5377d5bce998c6f3de5858ef2752e6707e11e7))
+
+
+
+## [1.0.10666](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.31150...v1.0.10666) (2024-05-01)
+
+
+
+## [1.0.31150](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.0-alpha...v1.0.31150) (2024-05-01)
+
+
+
+# [1.0.0-alpha](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.0...v1.0.0-alpha) (2024-05-01)
+
+
+
+# [1.0.0](https://github.com/ashishpawar517/eventifyPro/compare/65f58576938dc5c49e737bbb6b5aa71d679854a9...v1.0.0) (2024-05-01)
+
+
+### Bug Fixes
+
+* badge issue error ([#26](https://github.com/ashishpawar517/eventifyPro/issues/26)) ([1c19532](https://github.com/ashishpawar517/eventifyPro/commit/1c1953293d4f77e73f279671f516391c6b2a8233))
+
+
+### Features
+
+* add Events APIs ([#21](https://github.com/ashishpawar517/eventifyPro/issues/21)) ([15ce206](https://github.com/ashishpawar517/eventifyPro/commit/15ce2063445ba6d447330207f1aa912c9b292e40))
+* add tests ([#16](https://github.com/ashishpawar517/eventifyPro/issues/16)) ([4cf66de](https://github.com/ashishpawar517/eventifyPro/commit/4cf66ded425669c9149a247c00c9415bf2c67b1d))
+* added auth module ([#15](https://github.com/ashishpawar517/eventifyPro/issues/15)) ([9406fd2](https://github.com/ashishpawar517/eventifyPro/commit/9406fd2c26aa28711449817faa700f8626e60407))
+* added event user module ([#3](https://github.com/ashishpawar517/eventifyPro/issues/3)) ([65f5857](https://github.com/ashishpawar517/eventifyPro/commit/65f58576938dc5c49e737bbb6b5aa71d679854a9))
+* Event user module v2 updates ([#11](https://github.com/ashishpawar517/eventifyPro/issues/11)) ([18dc26a](https://github.com/ashishpawar517/eventifyPro/commit/18dc26ac3f03896ef8d8e9d9b2ed466376ead46b))
+
+
+
+# [](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.10667...v) (2024-05-09)
+
+
+### Bug Fixes
+
+* ci changelog ([f25e108](https://github.com/ashishpawar517/eventifyPro/commit/f25e1085a50db826c193426ff2f8f25e580a3248))
+* issue in steps output ci ([#53](https://github.com/ashishpawar517/eventifyPro/issues/53)) ([6c033b4](https://github.com/ashishpawar517/eventifyPro/commit/6c033b461db25ca367127b47fc61b92dca5b47d2))
+
+
+
+## [1.0.10667](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.10666...v1.0.10667) (2024-05-07)
+
+
+### Bug Fixes
+
+* error in github release CI ([#50](https://github.com/ashishpawar517/eventifyPro/issues/50)) ([ae5377d](https://github.com/ashishpawar517/eventifyPro/commit/ae5377d5bce998c6f3de5858ef2752e6707e11e7))
+
+
+
+## [1.0.10666](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.31150...v1.0.10666) (2024-05-01)
+
+
+
+## [1.0.31150](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.0-alpha...v1.0.31150) (2024-05-01)
+
+
+
+# [1.0.0-alpha](https://github.com/ashishpawar517/eventifyPro/compare/v1.0.0...v1.0.0-alpha) (2024-05-01)
+
+
+
+# [1.0.0](https://github.com/ashishpawar517/eventifyPro/compare/65f58576938dc5c49e737bbb6b5aa71d679854a9...v1.0.0) (2024-05-01)
+
+
+### Bug Fixes
+
+* badge issue error ([#26](https://github.com/ashishpawar517/eventifyPro/issues/26)) ([1c19532](https://github.com/ashishpawar517/eventifyPro/commit/1c1953293d4f77e73f279671f516391c6b2a8233))
+
+
+### Features
+
+* add Events APIs ([#21](https://github.com/ashishpawar517/eventifyPro/issues/21)) ([15ce206](https://github.com/ashishpawar517/eventifyPro/commit/15ce2063445ba6d447330207f1aa912c9b292e40))
+* add tests ([#16](https://github.com/ashishpawar517/eventifyPro/issues/16)) ([4cf66de](https://github.com/ashishpawar517/eventifyPro/commit/4cf66ded425669c9149a247c00c9415bf2c67b1d))
+* added auth module ([#15](https://github.com/ashishpawar517/eventifyPro/issues/15)) ([9406fd2](https://github.com/ashishpawar517/eventifyPro/commit/9406fd2c26aa28711449817faa700f8626e60407))
+* added event user module ([#3](https://github.com/ashishpawar517/eventifyPro/issues/3)) ([65f5857](https://github.com/ashishpawar517/eventifyPro/commit/65f58576938dc5c49e737bbb6b5aa71d679854a9))
+* Event user module v2 updates ([#11](https://github.com/ashishpawar517/eventifyPro/issues/11)) ([18dc26a](https://github.com/ashishpawar517/eventifyPro/commit/18dc26ac3f03896ef8d8e9d9b2ed466376ead46b))
+
+
+
 # Version: 20240509.1
 
 * [#51](https://github.com/ashishpawar517/eventifyPro/pull/51): docs: badge fixed
