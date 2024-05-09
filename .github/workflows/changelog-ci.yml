@@ -23,7 +23,7 @@ jobs:
       - name: Checkout PR branch
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.head_ref }}
+          ref: refs/pull/${{ github.event.pull_request.number }}/head:${{ github.head_ref }}
 
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
