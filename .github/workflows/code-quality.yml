@@ -7,40 +7,13 @@ on:
       - main
 
 jobs:
-  code-quality:
+  checkstyle:
+    name: runner / checkstyle
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - uses: dbelyaev/action-checkstyle@master
         with:
-          distribution: "temurin"
-          java-version: "17"
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
-      - name: Run code quality checks
-        run: |
-          mvn checkstyle:checkstyle
-
-      - name: Post Checkstyle results
-        if: failure()
-        env:
-          PR_COMMENT_BODY: ${{ steps.checkstyle.outputs.checkstyle-report }}
-        run: |
-          echo "$PR_COMMENT_BODY"
-          gh pr comment "$PR_COMMENT_BODY"
-
-      - id: checkstyle
-        name: Get Checkstyle report
-        if: failure()
-        run: |
-          CHECKSTYLE_REPORT="$(cat target/checkstyle-result.xml)"
-          echo "::set-output name=checkstyle-report::$CHECKSTYLE_REPORT"
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
