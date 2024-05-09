@@ -22,8 +22,6 @@ jobs:
 
       - name: Clone repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
