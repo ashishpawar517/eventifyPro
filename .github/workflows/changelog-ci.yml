@@ -21,6 +21,9 @@ jobs:
         uses: thenativeweb/get-next-version@main
         with:
           prefix: "v" # optional, defaults to ''
+      
+      - name: Print Next Version
+        run: echo "Next version : ${{steps.get_next_version.outputs.next_version}}"
 
       - name: Checkout PR branch
         uses: actions/checkout@v2
