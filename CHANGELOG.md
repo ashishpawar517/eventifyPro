@@ -1,3 +1,8 @@
+# Version: 20240509.1
+
+* [#51](https://github.com/ashishpawar517/eventifyPro/pull/51): docs: badge fixed
+
+
 # Version: v1.0.10667
 
 * [#51](https://github.com/ashishpawar517/eventifyPro/pull/51): docs: badge fixed
