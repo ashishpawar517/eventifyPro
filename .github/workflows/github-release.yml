@@ -28,7 +28,7 @@ jobs:
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
   
       - name: Print next version
-         run: echo "Next version: ${{ steps.get_next_version.outputs.next_version }}"
+        run: echo "Next version= ${{ steps.get_next_version.outputs.next_version }}"
 
       - name: Create Release
         if: github.ref == 'refs/heads/main'
