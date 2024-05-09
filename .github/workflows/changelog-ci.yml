@@ -21,9 +21,9 @@ jobs:
         run: echo "Next version = ${{steps.generate_release_tag.outputs.release_tag}}"
 
       - name: Checkout PR branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/head:${{ github.head_ref }}
+          ref: ${{ github.base_ref }}
 
       - name: Run Changelog CI
         uses: saadmk11/changelog-ci@v1.1.2
