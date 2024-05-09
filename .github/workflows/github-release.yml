@@ -1,7 +1,7 @@
 name: Github Release CI
 
 on:
-  push:
+  pull_request:
     branches: ["main"]
 
 jobs:
@@ -26,6 +26,9 @@ jobs:
         id: generate_values
         run: |
           echo "RELEASE_NAME=Release $(date +%Y-%m-%d)" >> $GITHUB_ENV
+  
+      - name: Print next version
+         run: echo "Next version: ${{ steps.get_next_version.outputs.next_version }}"
 
       - name: Create Release
         if: github.ref == 'refs/heads/main'
