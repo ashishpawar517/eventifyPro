@@ -1,0 +1,39 @@
+name: Code Quality
+
+# Trigger the workflow on pull requests
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11"
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Run code quality checks
+        run: |
+          mvn checkstyle:checkstyle
+
+      - name: Annotate Code Quality Results
+        uses: plr-actions/annotate-code-quality@v1
+        with:
+          path: "target/checkstyle-result.xml"
+          title: "Code Quality Report"
+          comment: |
+            Code quality results:
+            ${{ steps.annotate.outputs.annotation }}
