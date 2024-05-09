@@ -29,11 +29,17 @@ jobs:
         run: |
           mvn checkstyle:checkstyle
 
-      - name: Annotate Code Quality Results
-        uses: plr-actions/annotate-code-quality@v1
-        with:
-          path: "target/checkstyle-result.xml"
-          title: "Code Quality Report"
-          comment: |
-            Code quality results:
-            ${{ steps.annotate.outputs.annotation }}
+      - name: Post Checkstyle results
+        if: failure()
+        env:
+          PR_COMMENT_BODY: ${{ steps.checkstyle.outputs.checkstyle-report }}
+        run: |
+          echo "$PR_COMMENT_BODY"
+          gh pr comment "$PR_COMMENT_BODY"
+
+      - id: checkstyle
+        name: Get Checkstyle report
+        if: failure()
+        run: |
+          CHECKSTYLE_REPORT="$(cat target/checkstyle-result.xml)"
+          echo "::set-output name=checkstyle-report::$CHECKSTYLE_REPORT"
